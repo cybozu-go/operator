@@ -400,6 +400,19 @@ spec:
             configRawYaml:
               description: ConfigRawYaml - raw configuration for alertmanager, it helps it to start without secret. priority -> hardcoded ConfigRaw -> ConfigRaw, provided by user -> ConfigSecret.
               type: string
+            configReloadImage:
+              description: ConfigReloadImage - docker image settings for prometheus-config-reloader if no specified operator uses default config version
+              properties:
+                pullPolicy:
+                  description: PullPolicy describes how to pull docker image
+                  type: string
+                repository:
+                  description: Repository contains name of docker image + it's repository if needed
+                  type: string
+                tag:
+                  description: Tag contains desired docker image version
+                  type: string
+              type: object
             configSecret:
               description: ConfigSecret is the name of a Kubernetes Secret in the same namespace as the VMAlertmanager object, which contains configuration for this VMAlertmanager instance. Defaults to 'vmalertmanager-<alertmanager-name>' The secret is mounted into /etc/alertmanager/config.
               type: string

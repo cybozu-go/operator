@@ -376,6 +376,19 @@ spec:
               items:
                 type: string
               type: array
+            configReloadImage:
+              description: ConfigReloadImage - docker image settings for configmap-reload if no specified operator uses default one
+              properties:
+                pullPolicy:
+                  description: PullPolicy describes how to pull docker image
+                  type: string
+                repository:
+                  description: Repository contains name of docker image + it's repository if needed
+                  type: string
+                tag:
+                  description: Tag contains desired docker image version
+                  type: string
+              type: object
             containers:
               description: Containers property allows to inject additions sidecars. It can be useful for proxies, backup, etc.
               items:

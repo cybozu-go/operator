@@ -172,6 +172,16 @@ func newDeployForVMAgent(cr *victoriametricsv1beta1.VMAgent, c *config.BaseOpera
 		cr.Spec.Image.PullPolicy = corev1.PullIfNotPresent
 	}
 
+	if cr.Spec.ConfigReloadImage.Repository == "" {
+		cr.Spec.ConfigReloadImage.Repository = c.VMAgentDefault.ConfigReloadImage
+	}
+	if cr.Spec.ConfigReloadImage.Tag == "" {
+		cr.Spec.ConfigReloadImage.Tag = c.VMAgentDefault.ConfigReloadVersion
+	}
+	if cr.Spec.ConfigReloadImage.PullPolicy == "" {
+		cr.Spec.ConfigReloadImage.PullPolicy = corev1.PullIfNotPresent
+	}
+
 	if cr.Spec.Port == "" {
 		cr.Spec.Port = c.VMAgentDefault.Port
 	}
@@ -448,7 +458,8 @@ func makeSpecForVMAgent(cr *victoriametricsv1beta1.VMAgent, c *config.BaseOperat
 	operatorContainers := append([]corev1.Container{
 		{
 			Name:                     "config-reloader",
-			Image:                    c.VMAgentDefault.ConfigReloadImage,
+			Image:                    fmt.Sprintf("%s:%s", cr.Spec.ConfigReloadImage.Repository, cr.Spec.ConfigReloadImage.Tag),
+			ImagePullPolicy:          cr.Spec.ConfigReloadImage.PullPolicy,
 			TerminationMessagePolicy: corev1.TerminationMessageFallbackToLogsOnError,
 			Env: []corev1.EnvVar{
 				{

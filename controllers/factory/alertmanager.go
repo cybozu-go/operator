@@ -99,6 +99,12 @@ func newStsForAlertManager(cr *victoriametricsv1beta1.VMAlertmanager, c *config.
 	if cr.Spec.Image.Tag == "" {
 		cr.Spec.Image.Tag = c.VMAlertManager.AlertManagerVersion
 	}
+	if cr.Spec.ConfigReloadImage.Repository == "" {
+		cr.Spec.ConfigReloadImage.Repository = c.VMAlertManager.ConfigReloaderImage
+	}
+	if cr.Spec.ConfigReloadImage.Tag == "" {
+		cr.Spec.ConfigReloadImage.Tag = c.VMAlertManager.ConfigReloaderVersion
+	}
 	if cr.Spec.ReplicaCount == nil {
 		cr.Spec.ReplicaCount = &minReplicas
 	}
@@ -257,6 +263,7 @@ func makeStatefulSetSpec(cr *victoriametricsv1beta1.VMAlertmanager, config *conf
 	cr = cr.DeepCopy()
 
 	image := fmt.Sprintf("%s:%s", cr.Spec.Image.Repository, cr.Spec.Image.Tag)
+	configReloadImage := fmt.Sprintf("%s:%s", cr.Spec.ConfigReloadImage.Repository, cr.Spec.ConfigReloadImage.Tag)
 
 	amArgs := []string{
 		fmt.Sprintf("--config.file=%s", alertmanagerConfFile),
@@ -502,7 +509,7 @@ func makeStatefulSetSpec(cr *victoriametricsv1beta1.VMAlertmanager, config *conf
 			TerminationMessagePolicy: v1.TerminationMessageFallbackToLogsOnError,
 		}, {
 			Name:  "config-reloader",
-			Image: config.VMAlertManager.ConfigReloaderImage,
+			Image: configReloadImage,
 			Args: []string{
 				fmt.Sprintf("-webhook-url=%s", localReloadURL),
 				fmt.Sprintf("-volume-dir=%s", alertmanagerConfDir),

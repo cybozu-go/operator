@@ -45,6 +45,10 @@ type VMAlertmanagerSpec struct {
 	// if no specified operator uses default config version
 	// +optional
 	Image Image `json:"image,omitempty"`
+	// ConfigReloadImage - docker image settings for prometheus-config-reloader
+	// if no specified operator uses default config version
+	// +optional
+	ConfigReloadImage Image `json:"configReloadImage,omitempty"`
 
 	// ImagePullSecrets An optional list of references to secrets in the same namespace
 	// to use for pulling images from registries

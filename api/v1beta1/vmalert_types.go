@@ -27,6 +27,10 @@ type VMAlertSpec struct {
 	// if no specified operator uses default config version
 	// +optional
 	Image Image `json:"image,omitempty"`
+	// ConfigReloadImage - docker image settings for configmap-reload
+	// if no specified operator uses default one
+	// +optional
+	ConfigReloadImage Image `json:"configReloadImage,omitempty"`
 	// ImagePullSecrets An optional list of references to secrets in the same namespace
 	// to use for pulling images from registries
 	// see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod

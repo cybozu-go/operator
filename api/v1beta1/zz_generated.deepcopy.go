@@ -707,6 +707,7 @@ func (in *VMAgentSpec) DeepCopyInto(out *VMAgentSpec) {
 		(*in).DeepCopyInto(*out)
 	}
 	out.Image = in.Image
+	out.ConfigReloadImage = in.ConfigReloadImage
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
@@ -1072,6 +1073,7 @@ func (in *VMAlertSpec) DeepCopyInto(out *VMAlertSpec) {
 		(*in).DeepCopyInto(*out)
 	}
 	out.Image = in.Image
+	out.ConfigReloadImage = in.ConfigReloadImage
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
@@ -1278,6 +1280,7 @@ func (in *VMAlertmanagerSpec) DeepCopyInto(out *VMAlertmanagerSpec) {
 		(*in).DeepCopyInto(*out)
 	}
 	out.Image = in.Image
+	out.ConfigReloadImage = in.ConfigReloadImage
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))

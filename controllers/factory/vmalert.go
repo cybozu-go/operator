@@ -153,6 +153,16 @@ func newDeployForVMAlert(cr *victoriametricsv1beta1.VMAlert, c *config.BaseOpera
 		cr.Spec.Image.PullPolicy = corev1.PullIfNotPresent
 	}
 
+	if cr.Spec.ConfigReloadImage.Repository == "" {
+		cr.Spec.ConfigReloadImage.Repository = c.VMAlertDefault.ConfigReloadImage
+	}
+	if cr.Spec.ConfigReloadImage.Tag == "" {
+		cr.Spec.ConfigReloadImage.Tag = c.VMAlertDefault.ConfigReloadVersion
+	}
+	if cr.Spec.ConfigReloadImage.PullPolicy == "" {
+		cr.Spec.ConfigReloadImage.PullPolicy = corev1.PullIfNotPresent
+	}
+
 	if cr.Spec.Resources.Requests == nil {
 		cr.Spec.Resources.Requests = corev1.ResourceList{}
 	}
@@ -524,7 +534,8 @@ func vmAlertSpecGen(cr *victoriametricsv1beta1.VMAlert, c *config.BaseOperatorCo
 			TerminationMessagePolicy: corev1.TerminationMessageFallbackToLogsOnError,
 		}, {
 			Name:                     "config-reloader",
-			Image:                    c.VMAlertDefault.ConfigReloadImage,
+			Image:                    fmt.Sprintf("%s:%s", cr.Spec.ConfigReloadImage.Repository, cr.Spec.ConfigReloadImage.Tag),
+			ImagePullPolicy:          cr.Spec.ConfigReloadImage.PullPolicy,
 			Args:                     confReloadArgs,
 			Resources:                resources,
 			TerminationMessagePolicy: corev1.TerminationMessageFallbackToLogsOnError,

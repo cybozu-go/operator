@@ -13,7 +13,8 @@
 | VM_VMALERTDEFAULT_RESOURCE_REQUEST_CPU | 50m | false | - |
 | VM_VMALERTDEFAULT_CONFIGRELOADERCPU | 100m | false | - |
 | VM_VMALERTDEFAULT_CONFIGRELOADERMEMORY | 25Mi | false | - |
-| VM_VMALERTDEFAULT_CONFIGRELOADIMAGE | jimmidyson/configmap-reload:v0 | false | - |
+| VM_VMALERTDEFAULT_CONFIGRELOADIMAGE | jimmidyson/configmap-reload | false | - |
+| VM_VMALERTDEFAULT_CONFIGRELOADVERSION | v0.3.0 | false | - |
 | VM_VMAGENTDEFAULT_IMAGE | victoriametrics/vmagent | false | - |
 | VM_VMAGENTDEFAULT_VERSION | v1.43.0 | false | - |
 | VM_VMAGENTDEFAULT_CONFIGRELOADIMAGE | quay.io/coreos/prometheus-conf | false | - |

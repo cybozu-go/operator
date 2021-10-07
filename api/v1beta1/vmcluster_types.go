@@ -646,8 +646,15 @@ func (s VMStorage) GetNameWithPrefix(clusterName string) string {
 }
 
 func (s VMStorage) GetStorageVolumeName() string {
-
-	return "vmstorage-db"
+	if s.Storage == nil {
+		return "vmstorage-db"
+	} else if s.Storage.EmptyDir != nil {
+		return "vmstorage-db"
+	} else if s.Storage.VolumeClaimTemplate.Name == "" {
+		return "vmstorage-db"
+	} else {
+		return s.Storage.VolumeClaimTemplate.Name
+	}
 }
 
 func (s VMSelect) GetCacheMountVolmeName() string {

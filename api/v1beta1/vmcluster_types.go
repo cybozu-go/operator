@@ -642,7 +642,8 @@ func (s VMStorage) GetNameWithPrefix(clusterName string) string {
 	if s.Name == "" {
 		return PrefixedName(clusterName, "vmstorage")
 	}
-	return PrefixedName(s.Name, "vmstorage")
+	//return PrefixedName(s.Name, "vmstorage")
+	return s.Name
 }
 
 func (s VMStorage) GetStorageVolumeName() string {
